@@ -1,0 +1,172 @@
+/* Reset */
+
+* {
+  margin: 0px;
+  padding: 0px;
+  word-wrap: break-word;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+/* Default */
+
+:root {
+  /* Typography */
+  --font-weight-bold: 700;
+  --font-weight-medium: 500;
+
+  --preset-heading-l: var(--font-weight-bold) 2.5rem/2.5 "Outfit"; /* 40px */
+  --preset-heading-m: var(--font-weight-bold) 1.5rem/1.5 "Outfit"; /* 24px */
+  --preset-heading-s: var(--font-weight-bold) 1.25rem/1.25 "Outfit"; /* 20px */
+  --preset-heading-xs: var(--font-weight-bold) 1rem/1 "Outfit"; /* 16px */
+  --preset-heading-body: var(--font-weight-medium) 0.875rem/0.05 "Outfit"; /* 14px */
+
+  /* Color */
+  --preset-color-dark-navy: rgb(26, 42, 51);
+  --preset-color-semi-dark-navy: rgb(31, 54, 65);
+  --preset-color-light-blue: rgb(49, 195, 189);
+  --preset-color-light-blue-hover: rgb(101, 233, 228);
+  --preset-color-light-yellow: rgb(242, 177, 55);
+  --preset-color-light-yellow-hover: rgb(255, 200, 96);
+  --preset-color-silver: rgb(168, 191, 201);
+  --preset-color-silver-hover: rgb(219, 232, 237);
+
+  /* Spacing */
+  --spacing-0100: 8px;
+  --spacing-0200: 16px;
+  --spacing-0300: 24px;
+  --spacing-0400: 32px;
+  --spacing-0500: 40px;
+  --spacing-0600: 48px;
+  --spacing-0600: 64px;
+  --spacing-1000: 80px;
+  --spacing-1300: 104px;
+  --spacing-1600: 128px;
+}
+
+/* Font setting template */
+
+html {
+  font: var(--preset-heading-body);
+}
+
+body {
+  background-color: var(--preset-color-dark-navy);
+  padding-inline: var(--spacing-0200);
+}
+
+.button-type-1 {
+  width: 100%;
+  height: 67px;
+  font: var(--preset-heading-s);
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 -10px 0 inset rgba(40, 40, 40, 0.25);
+}
+
+.button-type-2 {
+  width: 226px;
+  height: 52px;
+  font: var(--preset-heading-xs);
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 -5px 0 inset rgba(40, 40, 40, 0.25);
+}
+
+.button-type-3 {
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 -5px 0 inset rgba(40, 40, 40, 0.25);
+}
+
+.button-colorway-1 {
+  background-color: var(--preset-color-light-yellow);
+}
+
+.button-colorway-1:hover {
+  background-color: var(--preset-color-light-yellow-hover);
+}
+
+.button-colorway-2 {
+  background-color: var(--preset-color-light-blue);
+}
+
+.button-colorway-2:hover {
+  background-color: var(--preset-color-light-blue-hover);
+}
+
+.button-colorway-2 {
+  background-color: var(--preset-color-light-blue);
+}
+
+.button-colorway-2:hover {
+  background-color: var(--preset-color-light-blue-hover);
+}
+
+.button-colorway-3 {
+  background-color: var(--preset-color-silver);
+}
+
+.button-colorway-3:hover {
+  background-color: var(--preset-color-silver-hover);
+}
+
+main {
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: auto min-content auto;
+  justify-content: center;
+}
+
+.new-game-screen {
+  display: grid;
+  gap: var(--spacing-0400);
+
+  img {
+    justify-self: center;
+  }
+
+  .slider-container {
+    display: grid;
+    background-color: var(--preset-color-semi-dark-navy);
+    gap: var(--spacing-0400);
+    text-align: center;
+    font: var(--preset-heading-xs);
+    color: var(--preset-color-silver);
+    text-transform: uppercase;
+    padding: var(--spacing-0400);
+    border-radius: var(--spacing-0100);
+
+    fieldset {
+      border: none;
+    }
+  }
+}
+
+.slider {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: var(--spacing-0600);
+  background-color: var(--preset-color-dark-navy);
+  padding: var(--spacing-0100);
+  border-radius: var(--spacing-0100);
+
+  div {
+    height: 100%;
+    border-radius: var(--spacing-0200);
+  }
+
+  .x-mark-back {
+    height: 100%;
+    background-color: var(--preset-color-silver);
+
+    img {
+      fill: var(--preset-color-dark-navy);
+    }
+  }
+}

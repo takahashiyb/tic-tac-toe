@@ -1,16 +1,11 @@
 
   <!-- New game menu start -->
-HEADING (L) OUTFIT BOLD 40PX 2,5PX KERNING
-HEADING (M) OUTFIT BOLD 24PX 1,5PX KERNING
-HEADING (S) OUTFIT BOLD 20PX 1,25PX KERNING
-HEADING (XS) OUTFIT BOLD 16PX IPX KERNING
-BODY OUTFIT MEDIUM V.PX O,8PX KERNING
 
   Pick player 1's mark = 
   Remember: X goes first
 
-  New Game (vs CPU)
-  New Game (vs player)
+  
+  
 
   <!-- New game menu end -->
 
