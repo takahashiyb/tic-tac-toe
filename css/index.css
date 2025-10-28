@@ -119,6 +119,7 @@ body {
 main {
   height: 100dvh;
   display: grid;
+  width: 100%;
   grid-template-rows: auto min-content auto;
   justify-content: center;
 }
@@ -126,9 +127,15 @@ main {
 .new-game-screen {
   display: grid;
   gap: var(--spacing-0400);
+  width: 100%;
+  max-width: 767px;
 
   img {
     justify-self: center;
+  }
+
+  p {
+    font: var(--preset-heading-body);
   }
 
   .slider-container {
@@ -146,6 +153,14 @@ main {
       border: none;
     }
   }
+
+  .button-container {
+    text-transform: uppercase;
+
+    button:first-child {
+      margin-bottom: var(--spacing-0200);
+    }
+  }
 }
 
 .slider {
@@ -155,17 +170,27 @@ main {
   background-color: var(--preset-color-dark-navy);
   padding: var(--spacing-0100);
   border-radius: var(--spacing-0100);
+}
 
-  div {
-    height: 100%;
-    border-radius: var(--spacing-0200);
+#x-mark-slider,
+#o-mark-slider {
+  border-radius: var(--spacing-0200);
+  justify-content: center;
+  padding: var(--spacing-0100);
+  height: 48px;
+  svg {
+    path {
+      object-fit: contain;
+      fill: var(--preset-color-silver);
+    }
   }
+}
 
-  .x-mark-back {
-    height: 100%;
-    background-color: var(--preset-color-silver);
-
-    img {
+#x-mark-slider.selected,
+#o-mark-slider.selected {
+  background-color: var(--preset-color-silver);
+  svg {
+    path {
       fill: var(--preset-color-dark-navy);
     }
   }

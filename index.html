@@ -24,35 +24,38 @@
   </head>
   <body>
     <main>
-      <div></div>
+      <div class="main-spacer"></div>
       <div class="new-game-screen">
         <img src="./starter-code/assets/logo.svg" alt="" />
         <div class="slider-container">
           Pick player 1's mark
-          <fieldset inert>
-            <input type="radio" name="mark" checked />
-            <input type="radio" name="mark" />
+          <fieldset inert hidden>
+            <input type="radio" name="mark" id="x-mark-radio" checked />
+            <input type="radio" name="mark" id="o-mark-radio" />
           </fieldset>
           <div class="slider">
-            <div class="x-mark-back">
-              <img src="./starter-code/assets/icon-x-outline.svg" alt="" />
-            </div>
-            <div>
-              <img src="./starter-code/assets/icon-o-outline.svg" alt="" />
-            </div>
+            <div id="x-mark-slider" class="selected"></div>
+            <div id="o-mark-slider"></div>
           </div>
           <p>Remember: X goes first</p>
         </div>
-        <div>
-          <button class="button-type-1 button-colorway-1">
+        <div class="button-container">
+          <button
+            id="button-new-solo-game"
+            class="button-type-1 button-colorway-1"
+          >
             New Game (vs CPU)
           </button>
-          <button class="button-type-1 button-colorway-2">
+          <button
+            id="button-new-2p-game"
+            class="button-type-1 button-colorway-2"
+          >
             New Game (vs player)
           </button>
         </div>
       </div>
-      <div></div>
+      <div class="main-spacer"></div>
     </main>
+    <script src="./js/index.js" type="module"></script>
   </body>
 </html>
