@@ -12,20 +12,33 @@ export const useGameStore = defineStore('game', () => {
     return turnNumber.value % 2
   })
 
-  const boardState = ref<{ sign: 'x' | 'o'; player: string; state: number[] }[]>([
-    { sign: 'x', player: 'P1', state: [] },
-    { sign: 'o', player: 'P2', state: [] },
+  const boardState = ref<{ sign: 'x' | 'o'; id: string; player: string; state: number[] }[]>([
+    { sign: 'x', id: 'P1', player: 'Player 1', state: [] },
+    { sign: 'o', id: 'P2', player: 'Player 2', state: [] },
   ])
 
   const scores = ref<{
-    player1: { name: 'Player 1'; score: number }
-    tie: { name: 'tie'; score: number }
-    player2: { name: 'Player 2' | 'CPU'; score: number }
+    left: { id: 'P1'; name: 'Player 1' | 'YOU'; score: number }
+    tie: { id: 'tie'; name: 'tie'; score: number }
+    right: { id: 'P2'; name: 'Player 2' | 'CPU'; score: number }
   }>({
-    player1: { name: 'Player 1', score: 0 },
-    tie: { name: 'tie', score: 0 },
-    player2: { name: 'Player 2', score: 0 },
+    left: { id: 'P1', name: 'Player 1', score: 0 },
+    tie: { id: 'tie', name: 'tie', score: 0 },
+    right: { id: 'P2', name: 'Player 2', score: 0 },
   })
+
+  function changeBoardStatus(position: number) {
+    if (gameState.value === 'end') {
+      return
+    }
+
+    const playerStats = boardState.value[turn.value]
+    if (playerStats) {
+      playerStats.state.push(position)
+    }
+
+    checkResult()
+  }
 
   function checkResult() {
     const playerStats = boardState.value[turn.value]
@@ -52,13 +65,21 @@ export const useGameStore = defineStore('game', () => {
         }).length > 0
     ) {
       gameState.value = 'end'
+
+      console.log('win ' + playerStats.player + playerStats.sign)
       return
     }
 
     turnNumber.value++
+
+    if (turnNumber.value === 9) {
+      gameState.value = 'end'
+      return
+    }
+
     gameState.value = 'midgame'
     return
   }
 
-  return { gameState, turn, scores, checkResult }
+  return { gameState, boardState, turn, scores, changeBoardStatus, checkResult }
 })
