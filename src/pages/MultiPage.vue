@@ -2,6 +2,8 @@
 import GameButtons from '@/component/GameButtons.vue'
 </script>
 <template>
-  <GameButtons></GameButtons>
+  <main>
+    <GameButtons></GameButtons>
+  </main>
 </template>
 <style lang="scss" scoped></style>
