@@ -1,0 +1,107 @@
+@use '@/assets/styles/functions.scss' as f;
+
+// Variables
+// / Colors
+$neutral-950: #000000;
+$neutral-000: #ffffff;
+// // Slate
+$slate-900: #1a2a33;
+$slate-850: #21313b;
+$slate-800: #1f3641;
+$slate-300: #a8bfc9;
+$slate-100: #dbe8ed;
+// // Amber
+$amber-400: #f2b137;
+$amber-300: #ffc860;
+// // Teal
+$teal-400: #31c3bd;
+$teal-300: #65e9e4;
+
+// Typography
+$text-1: (
+  font-size: f.rem(40),
+  line-height: 1.25,
+  letter-spacing: f.em(1.5),
+  font-weight: 700,
+);
+$text-2: (
+  font-size: f.rem(24),
+  line-height: 1.25,
+  letter-spacing: f.em(1.5),
+  font-weight: 700,
+);
+$text-3: (
+  font-size: f.rem(20),
+  line-height: 1.25,
+  letter-spacing: f.em(1.25),
+  font-weight: 700,
+);
+$text-4: (
+  font-size: f.rem(16),
+  line-height: 1.25,
+  letter-spacing: f.em(1),
+  font-weight: 700,
+);
+$text-5-mdm: (
+  font-size: f.rem(14),
+  line-height: 1.3,
+  letter-spacing: f.em(0.9),
+  font-weight: 500,
+);
+$text-5-bld: (
+  font-size: f.rem(14),
+  line-height: 1.3,
+  letter-spacing: f.em(0.9),
+  font-weight: 700,
+);
+$text-6-mdm: (
+  font-size: f.rem(12),
+  line-height: 1.25,
+  letter-spacing: f.em(0.75),
+  font-weight: 500,
+);
+
+// /Spacing
+$spacing-000: f.em(0);
+$spacing-100: f.em(8);
+$spacing-150: f.em(12);
+$spacing-200: f.em(16);
+$spacing-250: f.em(20);
+$spacing-300: f.em(24);
+$spacing-375: f.em(30);
+$spacing-500: f.em(40);
+
+// /Radius
+$radius-00: 0px;
+$radius-04: 4px;
+$radius-06: 6px;
+$radius-10: 10px;
+$radius-16: 16px;
+
+html {
+  background-color: black;
+}
+
+* {
+  font-family: 'Outfit';
+  font-size: 16px;
+  color: $neutral-000;
+
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0); /* Fallback for older browsers */
+  clip-path: inset(50%); /* Modern alternative */
+  white-space: nowrap;
+  border: 0;
+}
