@@ -79,7 +79,7 @@ img {
   padding: v.$spacing-300;
 
   border-radius: v.$radius-10;
-  box-shadow: 0 8px rgba(v.$neutral-950, 100%);
+  box-shadow: 0 8px rgba(v.$neutral-950, 20%);
 
   display: grid;
   place-items: center;
