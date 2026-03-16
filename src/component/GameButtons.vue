@@ -26,7 +26,8 @@ function canClick(value: number) {
           !game.boardState[0].state.includes(value, 0) &&
           game.boardState[1] &&
           !game.boardState[1].state.includes(value, 0) &&
-          game.turn === 1
+          game.turn === 1 &&
+          game.gameState !== 'end'
         "
         src="/src/assets/icons/icon-o-outline.svg"
         alt="hovered o icon"
@@ -43,7 +44,8 @@ function canClick(value: number) {
           !game.boardState[0].state.includes(value, 0) &&
           game.boardState[1] &&
           !game.boardState[1].state.includes(value, 0) &&
-          game.turn === 0
+          game.turn === 0 &&
+          game.gameState !== 'end'
         "
         src="/src/assets/icons/icon-x-outline.svg"
         alt="hovered x icon"
@@ -70,6 +72,7 @@ section {
 img {
   min-height: 100%;
   min-width: 100%;
+  max-width: 64px;
 }
 
 .button {
@@ -86,10 +89,10 @@ img {
 }
 
 .button .hover-icon {
-  display: none;
+  opacity: 0;
 }
 
 .button:hover .hover-icon {
-  display: inline;
+  opacity: 100%;
 }
 </style>
