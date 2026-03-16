@@ -86,6 +86,8 @@ img {
 
   display: grid;
   place-items: center;
+
+  cursor: pointer;
 }
 
 .button .hover-icon {
