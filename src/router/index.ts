@@ -1,9 +1,13 @@
 import MultiPage from '@/pages/MultiPage.vue'
-import { createRouter, createWebHistory } from 'vue-router'
+import StartPage from '@/pages/StartPage.vue'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [{ path: '/', name: 'multiplayer', component: MultiPage }],
+  history: createWebHashHistory(import.meta.env.BASE_URL),
+  routes: [
+    { path: '/multi', name: 'multiplayer', component: MultiPage },
+    { path: '/', name: 'start', component: StartPage },
+  ],
 })
 
 export default router

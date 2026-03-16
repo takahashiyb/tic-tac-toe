@@ -1,10 +1,13 @@
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useGameStore = defineStore('game', () => {
   const winners = [123, 159, 147, 258, 357, 369, 456, 789]
 
+  const menuRestart = ref<boolean>(false)
+
   function reset() {
+    menuRestart.value = false
     gameState.value = 'start'
     turnNumber.value = 0
     winner.value = null
@@ -19,11 +22,30 @@ export const useGameStore = defineStore('game', () => {
     }
   }
 
-  function newGame() {
-    gameState.value = 'start'
-    turnNumber.value = 0
-    winner.value = null
+  function saveLocalStorage() {
+    const states = {
+      gameState: gameState.value,
+      turnNumber: turnNumber.value,
+      boardState: boardState.value,
+      scores: scores.value,
+    }
 
+    localStorage.setItem('saveData', JSON.stringify(states))
+  }
+
+  function restoreState() {
+    const savedData = localStorage.getItem('saveData')
+
+    if (savedData) {
+      const parsed = JSON.parse(savedData)
+      gameState.value = parsed.gameState
+      turnNumber.value = parsed.turnNumber
+      boardState.value = parsed.boardState
+      scores.value = parsed.scores
+    }
+  }
+
+  function switchPlayers() {
     const playerX = { ...boardState.value[0] }
 
     const playerO = { ...boardState.value[1] }
@@ -41,6 +63,14 @@ export const useGameStore = defineStore('game', () => {
     })
   }
 
+  function newGame() {
+    gameState.value = 'start'
+    turnNumber.value = 0
+    winner.value = null
+
+    switchPlayers()
+  }
+
   const gameState = ref<'start' | 'midgame' | 'end'>('start')
 
   const turnNumber = ref<number>(0)
@@ -48,6 +78,15 @@ export const useGameStore = defineStore('game', () => {
   const turn = computed(() => {
     return turnNumber.value % 2
   })
+
+  watch(
+    () => {
+      return turnNumber.value
+    },
+    () => {
+      saveLocalStorage()
+    },
+  )
 
   const winner = ref<{ sign: 'x' | 'o'; id: string; player: string; state: number[] } | null>(null)
 
@@ -135,6 +174,10 @@ export const useGameStore = defineStore('game', () => {
   }
 
   return {
+    reset,
+    newGame,
+    switchPlayers,
+    menuRestart,
     gameState,
     boardState,
     winner,
@@ -143,6 +186,7 @@ export const useGameStore = defineStore('game', () => {
     getSign,
     changeBoardStatus,
     checkResult,
-    newGame,
+    saveLocalStorage,
+    restoreState,
   }
 })

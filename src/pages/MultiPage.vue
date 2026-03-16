@@ -1,9 +1,18 @@
 <script lang="ts" setup>
 import GameButtons from '@/component/GameButtons.vue'
 import ScoreTable from '@/component/ScoreTable.vue'
+
 import { useGameStore } from '@/stores/game'
+import MenuDialog from '@/component/MenuDialog.vue'
+import { onBeforeMount } from 'vue'
 
 const game = useGameStore()
+
+onBeforeMount(() => {
+  if (localStorage) {
+    game.restoreState()
+  }
+})
 </script>
 <template>
   <dialog :open="game.gameState === 'end'">
@@ -19,10 +28,11 @@ const game = useGameStore()
           >{{ game.winner ? 'TAKES THE ROUND' : 'ROUND TIED' }}</span
         >
       </div>
-      <span class="dialog__quit">QUIT</span>
-      <span class="dialog__next" @click="game.newGame">NEXT ROUND</span>
+      <RouterLink class="dialog__quit dialog__buttons" :to="{ name: 'start' }">QUIT</RouterLink>
+      <span class="dialog__next dialog__buttons" @click="game.newGame">NEXT ROUND</span>
     </div>
   </dialog>
+  <MenuDialog></MenuDialog>
   <header>
     <img src="@/assets/icons/logo.svg" alt="icon of logo" />
     <div class="turn-container">
@@ -30,7 +40,7 @@ const game = useGameStore()
       <img class="o-mark" src="@/assets/icons/icon-o.svg" alt="o icon" v-if="game.turn === 1" />
       <span class="turn-indicator">TURN</span>
     </div>
-    <div class="button__restart">
+    <div class="button__restart" @click="game.menuRestart = true">
       <span class="sr-only">redirects to game set up page</span>
       <img src="@/assets/icons/icon-restart.svg" alt="" />
     </div>
@@ -44,12 +54,14 @@ const game = useGameStore()
 @use '/src/assets/styles/main.scss' as v;
 
 header {
-  min-width: 100%;
+  width: 100%;
+  max-width: 424px;
 
   padding: v.$spacing-300;
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  justify-content: stretch;
   align-items: stretch;
 }
 
@@ -102,91 +114,6 @@ main {
   box-shadow: 0 4px rgba(v.$slate-300, 40%);
 
   justify-self: flex-end;
-}
-
-dialog {
-  min-width: 100%;
-  min-height: 100%;
-
-  background-color: rgba(v.$neutral-950, 50%);
-
-  border: none;
-
-  z-index: 99;
-
-  align-items: center;
-}
-
-dialog[open] {
-  display: grid;
-}
-
-.dialog__container {
-  min-width: 100%;
-
-  background-color: rgba(v.$slate-800, 100%);
-
-  display: flex;
-  flex-wrap: wrap;
-  align-content: center;
-  justify-content: center;
-  column-gap: v.$spacing-200;
-
-  padding: v.$spacing-500;
-}
-
-.dialog__pretext {
-  flex: 1;
-  min-width: 100%;
-  text-align: center;
-
-  padding-bottom: v.$spacing-200;
-}
-
-.dialog__header {
-  font-size: 40px;
-  flex: 1;
-  min-width: 100%;
-  text-align: center;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  column-gap: v.$spacing-100;
-
-  padding-bottom: v.$spacing-300;
-}
-
-.teal {
-  color: rgba(v.$teal-400, 100%);
-}
-
-.amber {
-  color: rgba(v.$amber-400, 100%);
-}
-
-.dialog__quit {
-  color: rgba(v.$slate-900, 100%);
-  background-color: rgba(v.$slate-300, 100%);
-  text-align: center;
-
-  padding: v.$spacing-200;
-
-  border-radius: v.$radius-10;
-
-  box-shadow: 0 4px rgba(v.$neutral-950, 20%);
-}
-
-.dialog__next {
-  color: rgba(v.$slate-900, 100%);
-  background-color: rgba(v.$amber-400, 100%);
-  text-align: center;
-
-  padding: v.$spacing-200;
-
-  border-radius: v.$radius-10;
-
-  box-shadow: 0 4px rgba(v.$amber-400, 40%);
 
   cursor: pointer;
 }
