@@ -4,6 +4,43 @@ import { defineStore } from 'pinia'
 export const useGameStore = defineStore('game', () => {
   const winners = [123, 159, 147, 258, 357, 369, 456, 789]
 
+  function reset() {
+    gameState.value = 'start'
+    turnNumber.value = 0
+    winner.value = null
+    boardState.value = [
+      { sign: 'x', id: 'P1', player: 'Player 1', state: [] },
+      { sign: 'o', id: 'P2', player: 'Player 2', state: [] },
+    ]
+    scores.value = {
+      left: { id: 'P1', name: 'Player 1', score: 0 },
+      tie: { id: 'tie', name: 'TIES', score: 0 },
+      right: { id: 'P2', name: 'Player 2', score: 0 },
+    }
+  }
+
+  function newGame() {
+    gameState.value = 'start'
+    turnNumber.value = 0
+    winner.value = null
+
+    const playerX = { ...boardState.value[0] }
+
+    const playerO = { ...boardState.value[1] }
+
+    Object.assign(boardState.value[0] as object, {
+      id: playerO.id,
+      player: playerO.player,
+      state: [],
+    })
+
+    Object.assign(boardState.value[1] as object, {
+      id: playerX.id,
+      player: playerX.player,
+      state: [],
+    })
+  }
+
   const gameState = ref<'start' | 'midgame' | 'end'>('start')
 
   const turnNumber = ref<number>(0)
@@ -11,6 +48,8 @@ export const useGameStore = defineStore('game', () => {
   const turn = computed(() => {
     return turnNumber.value % 2
   })
+
+  const winner = ref<{ sign: 'x' | 'o'; id: string; player: string; state: number[] } | null>(null)
 
   const boardState = ref<{ sign: 'x' | 'o'; id: string; player: string; state: number[] }[]>([
     { sign: 'x', id: 'P1', player: 'Player 1', state: [] },
@@ -71,7 +110,14 @@ export const useGameStore = defineStore('game', () => {
     ) {
       gameState.value = 'end'
 
-      console.log('win ' + playerStats.player + playerStats.sign)
+      winner.value = playerStats
+
+      let winnerScore = Object.values(scores.value).find((i) => i.id === playerStats.id)
+
+      if (winnerScore) {
+        winnerScore.score++
+      }
+
       return
     }
 
@@ -79,6 +125,8 @@ export const useGameStore = defineStore('game', () => {
 
     if (turnNumber.value === 9) {
       gameState.value = 'end'
+
+      scores.value.tie.score++
       return
     }
 
@@ -86,5 +134,15 @@ export const useGameStore = defineStore('game', () => {
     return
   }
 
-  return { gameState, boardState, turn, scores, getSign, changeBoardStatus, checkResult }
+  return {
+    gameState,
+    boardState,
+    winner,
+    turn,
+    scores,
+    getSign,
+    changeBoardStatus,
+    checkResult,
+    newGame,
+  }
 })
