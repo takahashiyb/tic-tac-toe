@@ -19,13 +19,18 @@ export const useGameStore = defineStore('game', () => {
 
   const scores = ref<{
     left: { id: 'P1'; name: 'Player 1' | 'YOU'; score: number }
-    tie: { id: 'tie'; name: 'tie'; score: number }
+    tie: { id: 'tie'; name: 'TIES'; score: number }
     right: { id: 'P2'; name: 'Player 2' | 'CPU'; score: number }
   }>({
     left: { id: 'P1', name: 'Player 1', score: 0 },
-    tie: { id: 'tie', name: 'tie', score: 0 },
+    tie: { id: 'tie', name: 'TIES', score: 0 },
     right: { id: 'P2', name: 'Player 2', score: 0 },
   })
+
+  function getSign(id: string) {
+    const sign = boardState.value.filter((i) => i.id === id)[0]
+    return sign ? sign.sign : ''
+  }
 
   function changeBoardStatus(position: number) {
     if (gameState.value === 'end') {
@@ -81,5 +86,5 @@ export const useGameStore = defineStore('game', () => {
     return
   }
 
-  return { gameState, boardState, turn, scores, changeBoardStatus, checkResult }
+  return { gameState, boardState, turn, scores, getSign, changeBoardStatus, checkResult }
 })
