@@ -34,7 +34,12 @@ watch(
 </script>
 <template>
   <section>
-    <div v-for="value in 9" @click="canClick(value)" class="button">
+    <div
+      v-for="value in 9"
+      @click="canClick(value)"
+      class="button"
+      :class="{ disabled: game.gameState === 'loadWin' }"
+    >
       <img
         class="hover-icon"
         v-if="
@@ -104,6 +109,10 @@ img {
   place-items: center;
 
   cursor: pointer;
+}
+
+.button.disabled {
+  pointer-events: none;
 }
 
 .button .hover-icon {

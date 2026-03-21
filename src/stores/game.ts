@@ -126,7 +126,7 @@ export const useGameStore = defineStore('game', () => {
     winner.value = null
   }
 
-  const gameState = ref<'start' | 'midgame' | 'end'>('start')
+  const gameState = ref<'start' | 'midgame' | 'loadWin' | 'end'>('start')
 
   const turnNumber = ref<number>(0)
 
@@ -193,6 +193,8 @@ export const useGameStore = defineStore('game', () => {
           return playerStats.state.includes(Number(i.toString()[2]), 0)
         }).length > 0
     ) {
+      gameState.value = 'loadWin'
+
       setTimeout(() => {
         gameState.value = 'end'
       }, 1000)
@@ -284,7 +286,7 @@ export const useCpuStore = defineStore('cpu', () => {
       play([5])
     }
   }
-  
+
   function turnTwo() {
     // console.log('2 :' + (game.turnNumber === 1 ? 'correct turn' : 'not turn'))
     // console.log('2 :' + cpuPlayer.value.sign)
