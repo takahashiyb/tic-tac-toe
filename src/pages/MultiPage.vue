@@ -74,6 +74,7 @@ function goToStartPage() {
 </template>
 <style lang="scss" scoped>
 @use '/src/assets/styles/main.scss' as v;
+@use '/src/assets/styles/functions.scss' as f;
 
 header {
   width: 100%;
@@ -92,6 +93,12 @@ main {
 
   display: grid;
   align-content: center;
+}
+
+@media (min-width: f.em(700)) {
+  main {
+    height: auto;
+  }
 }
 
 .turn-container {

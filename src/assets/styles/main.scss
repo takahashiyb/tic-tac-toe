@@ -92,6 +92,12 @@ html {
   align-items: center;
 }
 
+@media (min-width: f.em(700)) {
+  #app {
+    justify-content: center;
+  }
+}
+
 * {
   font-family: 'Outfit';
   color: $neutral-000;

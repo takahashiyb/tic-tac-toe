@@ -98,6 +98,12 @@ main {
   align-content: center;
 }
 
+@media (min-width: f.em(700)) {
+  main {
+    height: auto;
+  }
+}
+
 .turn-container {
   height: 40px;
   width: 96px;
