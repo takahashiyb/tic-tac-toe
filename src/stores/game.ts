@@ -11,6 +11,7 @@ export const useGameStore = defineStore('game', () => {
     gameState.value = 'start'
     turnNumber.value = 0
     winner.value = null
+    finalWin.value = null
     boardState.value = [
       { sign: 'x', id: 'P1', player: 'Player 1', state: [] },
       { sign: 'o', id: 'P2', player: 'Player 2', state: [] },
@@ -124,6 +125,7 @@ export const useGameStore = defineStore('game', () => {
     gameState.value = 'start'
     turnNumber.value = 0
     winner.value = null
+    finalWin.value = null
   }
 
   const gameState = ref<'start' | 'midgame' | 'loadWin' | 'end'>('start')
@@ -135,6 +137,8 @@ export const useGameStore = defineStore('game', () => {
   })
 
   const winner = ref<{ sign: 'x' | 'o'; id: string; player: string; state: number[] } | null>(null)
+
+  const finalWin = ref<number[] | null>(null)
 
   const boardState = ref<{ sign: 'x' | 'o'; id: string; player: string; state: number[] }[]>([
     { sign: 'x', id: 'P1', player: 'Player 1', state: [] },
@@ -180,9 +184,10 @@ export const useGameStore = defineStore('game', () => {
     }
 
     // Checks for a winning combination
-    if (
-      playerStats &&
-      winners
+    let winingCombination
+
+    if (playerStats) {
+      winingCombination = winners
         .filter((i) => {
           return playerStats.state.includes(Number(i.toString()[0]), 0)
         })
@@ -191,9 +196,13 @@ export const useGameStore = defineStore('game', () => {
         })
         .filter((i) => {
           return playerStats.state.includes(Number(i.toString()[2]), 0)
-        }).length > 0
-    ) {
+        })
+    }
+
+    if (playerStats && winingCombination && winingCombination.length > 0) {
       gameState.value = 'loadWin'
+
+      finalWin.value = Array.from(String(winingCombination), Number)
 
       setTimeout(() => {
         gameState.value = 'end'
@@ -235,6 +244,7 @@ export const useGameStore = defineStore('game', () => {
     turn,
     turnNumber,
     scores,
+    finalWin,
     getSign,
     changeBoardStatus,
     checkResult,

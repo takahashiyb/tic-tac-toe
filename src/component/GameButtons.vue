@@ -38,7 +38,7 @@ watch(
       v-for="value in 9"
       @click="canClick(value)"
       class="button"
-      :class="{ disabled: game.gameState === 'loadWin' }"
+      :class="{ disabled: game.gameState === 'loadWin', winner: game.finalWin?.includes(value, 0) }"
     >
       <img
         class="hover-icon"
@@ -113,6 +113,10 @@ img {
 
 .button.disabled {
   pointer-events: none;
+}
+
+.button.winner {
+  background-color: v.$slate-300;
 }
 
 .button .hover-icon {
