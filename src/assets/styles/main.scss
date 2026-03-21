@@ -176,7 +176,7 @@ dialog[open] {
   flex-wrap: wrap;
   align-content: center;
   justify-content: center;
-  column-gap: $spacing-200;
+  gap: $spacing-200;
 
   padding: $spacing-500;
 }
@@ -203,12 +203,12 @@ dialog[open] {
   padding-bottom: $spacing-300;
 }
 
-.teal {
-  color: rgba($teal-400, 100%);
+.slate-bg {
+  background-color: rgba($slate-300, 100%);
 }
 
-.amber {
-  color: rgba($amber-400, 100%);
+.slate-bg.tabbable:hover {
+  background-color: rgba($slate-100, 100%);
 }
 
 .teal-bg {
@@ -217,6 +217,14 @@ dialog[open] {
 
 .amber-bg {
   background-color: rgba($amber-400, 100%);
+}
+
+.teal-bg.tabbable:hover {
+  background-color: rgba($teal-300, 100%);
+}
+
+.amber-bg.tabbable:hover {
+  background-color: rgba($amber-300, 100%);
 }
 
 .dialog__quit,
@@ -235,7 +243,6 @@ dialog[open] {
 .dialog__next,
 .dialog__setup {
   color: rgba($slate-900, 100%);
-  background-color: rgba($amber-400, 100%);
   text-align: center;
 
   padding: $spacing-200;
@@ -243,4 +250,23 @@ dialog[open] {
   border-radius: $radius-10;
 
   box-shadow: 0 4px rgba($amber-400, 40%);
+}
+
+.button__restart {
+  background-color: $slate-300;
+  height: 40px;
+
+  padding: $spacing-150;
+
+  border-radius: $radius-06;
+
+  box-shadow: 0 4px rgba($slate-300, 40%);
+
+  justify-self: flex-end;
+
+  cursor: pointer;
+}
+
+.button__restart:hover {
+  background-color: $slate-100;
 }

@@ -1,15 +1,11 @@
 <script lang="ts" setup>
 import { useGameStore } from '@/stores/game'
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const game = useGameStore()
 
 const router = useRouter()
-
-onMounted(() => {
-  game.reset()
-})
 
 const markIsX = ref<boolean>(true)
 
@@ -24,11 +20,25 @@ function switchSelectedMark() {
 }
 
 function goToMultiplayer() {
+  localStorage.removeItem('savedMulti')
+  game.reset()
+
   if (!markIsX.value && game.boardState[0] && game.boardState[0].id === 'P1') {
     game.switchPlayers()
   }
 
   router.push({ name: 'multiplayer' })
+}
+
+function goToCpu() {
+  localStorage.removeItem('savedCpu')
+  game.reset()
+
+  if (!markIsX.value && game.boardState[0] && game.boardState[0].id === 'P1') {
+    game.switchPlayers()
+  }
+
+  router.push({ name: 'cpu' })
 }
 </script>
 <template>
@@ -56,8 +66,10 @@ function goToMultiplayer() {
       </div>
       <span class="menu__note">REMEMBER : X GOES FIRST</span>
     </div>
-    <span class="menu__button amber-bg">NEW GAME (VS CPU)</span>
-    <span class="menu__button teal-bg" @click="goToMultiplayer()">NEW GAME (VS PLAYER)</span>
+    <span class="menu__button tabbable amber-bg" @click="goToCpu()">NEW GAME (VS CPU)</span>
+    <span class="menu__button tabbable teal-bg" @click="goToMultiplayer()"
+      >NEW GAME (VS PLAYER)</span
+    >
   </main>
 </template>
 <style lang="scss" scoped>
@@ -109,6 +121,8 @@ main {
   padding-bottom: v.$spacing-250;
 
   border-radius: v.$radius-16;
+
+  cursor: pointer;
 }
 
 .menu__button.teal-bg {
@@ -135,6 +149,10 @@ main {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
+}
+
+.button__mark-select:hover {
+  background-color: rgba(v.$slate-850, 100%);
 }
 
 .mark-x {

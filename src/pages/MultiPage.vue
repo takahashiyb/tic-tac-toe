@@ -4,15 +4,33 @@ import ScoreTable from '@/component/ScoreTable.vue'
 
 import { useGameStore } from '@/stores/game'
 import MenuDialog from '@/component/MenuDialog.vue'
-import { onBeforeMount } from 'vue'
+import { onBeforeMount, watch } from 'vue'
+import { useRouter } from 'vue-router'
 
 const game = useGameStore()
 
+const router = useRouter()
+
+game.switchPlayer2Type('p2')
+
 onBeforeMount(() => {
   if (localStorage) {
-    game.restoreState()
+    game.restoreState('multiplayer')
   }
 })
+
+watch(
+  () => {
+    return game.turnNumber
+  },
+  () => {
+    game.saveLocalStorage('multiplayer')
+  },
+)
+
+function goToStartPage() {
+  router.push({ name: 'start' })
+}
 </script>
 <template>
   <dialog :open="game.gameState === 'end'">
@@ -28,8 +46,12 @@ onBeforeMount(() => {
           >{{ game.winner ? 'TAKES THE ROUND' : 'ROUND TIED' }}</span
         >
       </div>
-      <RouterLink class="dialog__quit dialog__buttons" :to="{ name: 'start' }">QUIT</RouterLink>
-      <span class="dialog__next dialog__buttons" @click="game.newGame">NEXT ROUND</span>
+      <span class="dialog__quit dialog__buttons slate-bg tabbable" @click="goToStartPage()"
+        >QUIT</span
+      >
+      <span class="dialog__next dialog__buttons amber-bg tabbable" @click="game.newGame"
+        >NEXT ROUND</span
+      >
     </div>
   </dialog>
   <MenuDialog></MenuDialog>
@@ -101,20 +123,5 @@ main {
 
 .o-mark {
   filter: invert(1) saturate(0.05) hue-rotate(300deg) brightness(2.7);
-}
-
-.button__restart {
-  background-color: v.$slate-300;
-  height: 40px;
-
-  padding: v.$spacing-150;
-
-  border-radius: v.$radius-06;
-
-  box-shadow: 0 4px rgba(v.$slate-300, 40%);
-
-  justify-self: flex-end;
-
-  cursor: pointer;
 }
 </style>

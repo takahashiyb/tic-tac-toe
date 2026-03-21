@@ -7,23 +7,17 @@ const scores = game.scores
 </script>
 <template>
   <section>
-    <div class="score-card" :class="game.getSign(scores.left.id) + '-card'">
-      <p class="score-card__header">
-        {{ game.boardState.find((i) => i.id === scores.left.id)!.sign.toUpperCase() }} ({{
-          scores.left.id
-        }})
-      </p>
+    <div class="score-card" :class="scores.left.sign + '-card'">
+      <p class="score-card__header">{{ scores.left.sign.toUpperCase() }} ({{ scores.left.id }})</p>
       <p class="score-card__score">{{ scores.left.score }}</p>
     </div>
     <div class="score-card">
-      <p class="score-card__header">{{ scores.tie.name }}</p>
+      <p class="score-card__header">{{ scores.tie.player }}</p>
       <p class="score-card__score">{{ scores.tie.score }}</p>
     </div>
-    <div class="score-card" :class="game.getSign(scores.right.id) + '-card'">
+    <div class="score-card" :class="scores.right.sign + '-card'">
       <p class="score-card__header">
-        {{ game.boardState.find((i) => i.id === scores.right.id)!.sign.toUpperCase() }} ({{
-          scores.right.id
-        }})
+        {{ scores.right.sign.toUpperCase() }} ({{ scores.right.id }})
       </p>
       <p class="score-card__score">{{ scores.right.score }}</p>
     </div>

@@ -1,7 +1,13 @@
 <script lang="ts" setup>
-import { useGameStore } from '@/stores/game.ts'
+import { useCpuStore, useGameStore } from '@/stores/game.ts'
+import { watch } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const game = useGameStore()
+
+const cpu = useCpuStore()
 
 const boardState = game.boardState
 
@@ -15,6 +21,16 @@ function canClick(value: number) {
   }
   game.changeBoardStatus(value)
 }
+
+watch(
+  () => game.turn,
+  (turn) => {
+    if (route.name === 'cpu') {
+      cpu.move()
+    }
+  },
+  { immediate: true },
+)
 </script>
 <template>
   <section>
