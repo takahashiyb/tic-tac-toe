@@ -78,6 +78,7 @@ function goToStartPage() {
 </template>
 <style lang="scss" scoped>
 @use '/src/assets/styles/main.scss' as v;
+@use '/src/assets/styles/functions.scss' as f;
 
 header {
   width: 100%;
