@@ -363,7 +363,6 @@ export const useCpuStore = defineStore('cpu', () => {
 
       result = Number(result.toString().replaceAll(move.toString(), ''))
     }
-
     return Number(result)
   }
 
@@ -487,15 +486,15 @@ export const useCpuStore = defineStore('cpu', () => {
     if (game.turnNumber >= 5 && game.turnNumber < 9 && game.boardState[game.turn]?.id === 'CPU') {
       const viableNumbers = allPossible(cpuPlayer.value!.state)
 
-      const winner = winningMove(viableNumbers, cpuPlayer.value.state)
+      const winner = winningMove(viableNumbers, cpuPlayer.value!.state)
 
       const loser = winningMove(allPossible(you.value!.state), you.value!.state)
 
-      const needBlocking = filterExclude(loser, cpuPlayer.value.state)
+      const needBlocking = filterExclude(loser, cpuPlayer.value!.state)
 
       let winningNumber = winner
         .map((item) => {
-          const number = replaceMultiple(item, cpuPlayer.value.state)
+          const number = replaceMultiple(item, cpuPlayer.value!.state)
 
           if (you.value?.state.includes(number, 0)) {
             return
@@ -506,7 +505,7 @@ export const useCpuStore = defineStore('cpu', () => {
         .filter((i) => i)
 
       if (winningNumber.length !== 0) {
-        play(winningNumber)
+        play(winningNumber as Array<number>)
       } else if (needBlocking.length > 0) {
         play([replaceMultiple(needBlocking[0] as number, you.value!.state)])
       } else {
